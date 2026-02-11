@@ -2,13 +2,30 @@ const express = require('express');
 const mongoose = require('mongoose');
 const { OpenAI } = require('openai');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 const app = express();
+
+app.use(cors({
+  origin: [
+    'http://a7b3efbbf58574bf3b7b7d57f3de3cc8-1043889612.us-west-2.elb.amazonaws.com',
+  ],
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: false,
+  preflightContinue: false,
+  optionsSuccessStatus: 204
+}));
+
+
 app.use(bodyParser.json());
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
-mongoose.connect('mongodb://admin:mongo67!@mongo:27017/chatdb?authSource=admin', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(
+  'mongodb://admin:password@mongo:27017/chatdb?authSource=admin',
+  { useNewUrlParser: true, useUnifiedTopology: true }
+);
 
 const MessageSchema = new mongoose.Schema({
   userMessage: String,
@@ -31,8 +48,15 @@ app.post('/api/chat', async (req, res) => {
 
     res.json({ response: botResponse });
   } catch (error) {
+    console.error('Chat error:', error);
     res.status(500).json({ error: 'Error processing request' });
   }
 });
 
-app.listen(3000, () => console.log('Server running on port 3000'));
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'ok' });
+});
+
+app.listen(3000, () => {
+  console.log('Server running on port 3000');
+});
