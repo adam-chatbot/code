@@ -23,7 +23,7 @@ app.use(bodyParser.json());
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 mongoose.connect(
-  'mongodb://admin:password@mongo:27017/chatdb?authSource=admin',
+  'mongodb://admin:mongo67!@mongo:27017/chatdb?authSource=admin',
   { useNewUrlParser: true, useUnifiedTopology: true }
 );
 
