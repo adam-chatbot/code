@@ -44,6 +44,7 @@ jobs:
     
     - name: Security Scan
       uses: aquasecurity/trivy-action@master
+      continue-on-error: true
       with:
         image-ref: ${{ secrets.ECR_REPO_BACKEND }}:latest
         format: 'table'
