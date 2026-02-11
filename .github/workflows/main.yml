@@ -37,7 +37,8 @@ jobs:
     - name: Build and push frontend
       uses: docker/build-push-action@v4
       with:
-        context: ./frontend
+        context: ./frontend          # ← important: point to the React folder
+        file: ./frontend/Dockerfile  # if Dockerfile is inside frontend/
         push: true
         tags: ${{ secrets.ECR_REPO_FRONTEND }}:latest
     
