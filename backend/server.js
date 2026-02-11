@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const app = express();
 app.use(bodyParser.json());
 
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });  // Set via env or K8s secret
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 mongoose.connect('mongodb://admin:mongo67!@mongo:27017/chatdb?authSource=admin', { useNewUrlParser: true, useUnifiedTopology: true });
 
