@@ -10,7 +10,7 @@ function App() {
     setMessages([...messages, { sender: 'user', text: userMsg }]);
     setInput('');
 
-    const res = await fetch('http://backend-service-url/api/chat', {  // Replace with actual ELB DNS
+    const res = await fetch('http://backend-service-url/api/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ message: userMsg })
