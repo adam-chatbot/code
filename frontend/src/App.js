@@ -10,7 +10,7 @@ function App() {
     setMessages([...messages, { sender: 'user', text: userMsg }]);
     setInput('');
 
-    const res = await fetch('http://backend-service-url/api/chat', {
+    const res = await fetch('http://a634f29b5785e4f52a75eb929cd2b534-572735873.us-west-2.elb.amazonaws.com/api/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ message: userMsg })
